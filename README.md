@@ -4,16 +4,16 @@ This page contains software and data resources related to the paper
 >[Mobadersany, *et al.* "Predicting cancer outcomes from histology and
 genomics using convolutional networks" *PNAS* published online March 12, 2018 ahead of print https://doi.org/10.1073/pnas.1717139115](http://www.pnas.org/content/early/2018/03/09/1717139115).
 
-We provide scripts for formatting and analyzing data, a portable Docker container that encapsulates a executable software, documentation, and data used to generate the results shown in the paper.
+We provide scripts for formatting and analyzing data, a portable Docker container that encapsulates an executable software, documentation, and data used to generate the results shown in the paper.
 
 ## 3/12/2018 Update
 We are working to document and organize the software and scripts. We anticipate that everything will posted here by Friday 3/16. We apologize for the delay.
 
 ## Data
-The results in this paper were generated using whole-slide .svs images of parafin embedded sections from The Cancer Genome Atlas. These images are publically available and hosted at the [NCI Genomic Data Commons](https://gdc.cancer.gov/) (GDC) Legacy Archive. A full list of the whole-slide image files used in the paper is available in /data/rois.txt. Note that the whole-slide image files and even the extracted regions-of-interest (ROIs) are quite large and so these are not hosted here.
+The results in this paper were generated using whole-slide .svs images of paraffin embedded sections from The Cancer Genome Atlas. These images are publically available and hosted at the [NCI Genomic Data Commons](https://gdc.cancer.gov/) (GDC) Legacy Archive. A full list of the whole-slide image files used in the paper is available in /data/rois.txt. Note that the whole-slide image files and even the extracted regions-of-interest (ROIs) are quite large and so these are not hosted here.
 
 ### Downloading the data
-GDC does not currently enable direct querying of the TCGA diagnostic images for a specific project. To generate a list of the files for download, you have to first generate a manifest of all whole-slide images in TCGA (both frozen and diagnostic), filter the frozen section images in this list, and then match the identifiers against the sample identifiers (TCGA-##-####) for the project(s) of interest.
+GDC does not currently enable direct querying of the TCGA diagnostic images for a specific project. To generate a list of the files to download, you have to first generate a manifest of all whole-slide images in TCGA (both frozen and diagnostic), filter the frozen section images in this list, and then match the identifiers against the sample identifiers (TCGA-##-####) for the project(s) of interest.
 
 The manifest for all TCGA whole-slide images can be generated using the GDC Legacy Archive query:
 ```
