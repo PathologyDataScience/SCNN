@@ -15,7 +15,7 @@ The results in this paper were generated using whole-slide .svs images of paraff
 ### Downloading the data
 GDC does not currently enable direct querying of the TCGA diagnostic images for a specific project. To generate a list of the files to download, you have to first generate a manifest of all whole-slide images in TCGA (both frozen and diagnostic), filter the frozen section images in this list, and then match the identifiers against the sample identifiers (TCGA-##-####) for the project(s) of interest.
 
-The manifest for all TCGA whole-slide images can be generated using [the GDC Legacy Archive query](https://portal.gdc.cancer.gov/legacy-archive/search/f?filters=%7B%22op%22:%22and%22,%22content%22:%5B%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_format%22,%22value%22:%5B%22SVS%22%5D%7D%7D%5D%7D):
+The manifest for all TCGA whole-slide images can be generated using the [GDC Legacy Archive query](https://portal.gdc.cancer.gov/legacy-archive/search/f?filters=%7B%22op%22:%22and%22,%22content%22:%5B%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_format%22,%22value%22:%5B%22SVS%22%5D%7D%7D%5D%7D):
 
 Rows containing diagnostic images can be identified using the Linux command line to identify slides with names 
 ```
