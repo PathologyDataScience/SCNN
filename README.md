@@ -6,8 +6,8 @@ genomics using convolutional networks" *PNAS* published online March 12, 2018 ah
 
 We provide scripts for formatting and analyzing data, a portable Docker container that encapsulates an executable software, documentation, and data used to generate the results shown in the paper.
 
-## 3/12/2018 Update
-We are working to document and organize the software and scripts. We anticipate that everything will posted here by Friday 3/16. We apologize for the delay.
+## 3/16/2018 Update
+We are testing the Docker image and organizing the scripts and data used to generate figures. We will post a link to the Docker image on Monday 3/19. We apologize for the delay.
 
 ## Data
 The results in this paper were generated using whole-slide .svs images of paraffin embedded sections and clinica outcomes data from The Cancer Genome Atlas. These images are publically available and hosted at the [NCI Genomic Data Commons](https://gdc.cancer.gov/) (GDC) Legacy Archive. A full list of the whole-slide image files used in the paper is available in /data/rois.txt. Note that the whole-slide image files and even the extracted regions-of-interest (ROIs) are quite large and so these are not hosted here.
