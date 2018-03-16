@@ -135,9 +135,9 @@ optional arguments:
 ``` 
 The outputs generetaed by model_test.py are:
  
-* Input binary files saved in ./tmp folder by default
+* Binary conversion of .png ROI files for test-set
 * ###_testset_cindex.txt saved in the folder specified by the -r argument. ### is the date/time when the executable was run. This file contains the final C-Index of the model during testing. As described in the paper, this C-Index represents the accuracy of model-averaged risks (the last 5 models by default that are saved during training). [See the *Methods* section for more details](http://www.pnas.org/content/early/2018/03/09/1717139115).
-* ###_testset_patients_risks.csv saved in ./train_results directory by default. ### is the date/time when the executable was run. This file contains four columns that represent: indexes (allocated index of each testset patient), censored (censoring status for each testset patient: 0 for NOT censored, 1 for censored), survivals (survival time for each testset patient in months), risks (predicted risk values by the model for each testset patient). This file contains the predicted patient risks used to calculate the final c-index. It also contains the inputs as converted in the binary file to confirm data alignment and correct conversion and scaling of any genomic features.
+* ###_testset_patients_risks.csv saved in ./train_results directory by default. ### is the date/time when the executable was run. This file contains four columns that represent: indexes (allocated index of each testset patient), censored (censoring status for each testset patient: 0 for uncensored or observed, 1 for right-censored), survivals (survival time or time-to-event for each testset patient), risks (predicted risk values by the SCNN/GSCNN model for each testset patient). This file contains the predicted patient risks used to calculate the final c-index. It also contains the inputs as converted in the binary file to confirm data alignment and correct conversion and scaling of any genomic features.
 
 **Example**
 ```
