@@ -31,20 +31,20 @@ cancerdatascience/scnn         1.0                            21d851ebf629      
 
 3. Switch to the docker container and run the code on CPU or GPU
 
-``
 3-1. CPU version
+``
 $docker run -it cancerdatascience/scnn:1.0 /bin/bash
 root@97d439b58033:/# cd /root/scnn
 root@97d439b58033:/# python model_train.py
 ``
 
+3-2. GPU version (4 GPUs - see note below)
 ``
-3-2. GPU version
-* Note that our docker is built on CUDA 8.0 with CUDNN 5.1 and Nvidia driver 367.57 with 4 GPUs
 $docker run --device=/dev/nvidiactl --device=/dev/nvidia-uvm --device=/dev/nvidia0:/dev/nvidia0 --device=/dev/nvidia1:/dev/nvidia1 --device=/dev/nvidia2:/dev/nvidia2 --device=/dev/nvidia3:/dev/nvidia3 -i -t cancerdatascience/scnn:1.0 /bin/bash
 root@97d439b58033:/# cd /root/scnn
 root@97d439b58033:/# python model_train.py
 ``
+* Note: this docker is built on CUDA 8.0 with CUDNN 5.1 and Nvidia driver 367.57. This code was developed on a system with 4 NVIDIA K80 GPUs. The memory limitations of GPU systems vary widely and may result in memory errors when running the Docker in GPU mode.*
 
 # Executables for training and testing models
 
