@@ -47,7 +47,7 @@ root@97d439b58033:/# cd /root/scnn
 root@97d439b58033:/# python model_train.py
 ``
 
-* Note: this docker is built on CUDA 8.0 with CUDNN 5.1 and Nvidia driver 367.57. This code was developed on a system with 4 NVIDIA K80 GPUs. The memory limitations of GPU systems vary widely and running this Docker in GPU with inadequate resources may produce memory errors.*
+*Note: this docker is built on CUDA 8.0 with CUDNN 5.1 and Nvidia driver 367.57. This code was developed on a system with 4 NVIDIA K80 GPUs. The memory limitations of GPU systems vary widely and running this Docker in GPU with inadequate resources may produce memory errors.*
 
 # Executables for training and testing models
 
