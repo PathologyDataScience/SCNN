@@ -23,29 +23,29 @@ $docker pull cancerdatascience/scnn:1.0
 
 2. Confirm that the docker image is downloaded. The image is > 10GB due to the inclusion of data and so the download may take some time
 
-``
+```
 $docker images
 REPOSITORY                     TAG                            IMAGE ID            CREATED             SIZE
 cancerdatascience/scnn         1.0                            858d8c3d6af4        24 hours ago        13.2GB
-``
+```
 
 3. Switch to the docker container and run the code on CPU or GPU
 
 3-1. CPU version
 
-``
+```
 $docker run -it cancerdatascience/scnn:1.0 /bin/bash
 root@97d439b58033:/# cd /root/scnn
 root@97d439b58033:/# python model_train.py
-``
+```
 
 3-2. GPU version (4 GPUs - see note below)
 
-``
+```
 $docker run --device=/dev/nvidiactl --device=/dev/nvidia-uvm --device=/dev/nvidia0:/dev/nvidia0 --device=/dev/nvidia1:/dev/nvidia1 --device=/dev/nvidia2:/dev/nvidia2 --device=/dev/nvidia3:/dev/nvidia3 -i -t cancerdatascience/scnn:1.0 /bin/bash
 root@97d439b58033:/# cd /root/scnn
 root@97d439b58033:/# python model_train.py
-``
+```
 
 *Note: this docker is built on CUDA 8.0 with CUDNN 5.1 and Nvidia driver 367.57. This code was developed on a system with 4 NVIDIA K80 GPUs. The memory limitations of GPU systems vary widely and running this Docker in GPU with inadequate resources may produce memory errors.*
 
