@@ -1,3 +1,6 @@
+# 3/20/2018 Update
+The Docker image is available below. We are still working to organize and document the data analysis scripts. We apologize for the delay.
+
 # Survival Convolutional Networks
 This page contains software and data resources related to the paper
 
@@ -6,34 +9,53 @@ genomics using convolutional networks" *PNAS* published online March 12, 2018 ah
 
 We provide scripts for formatting and analyzing data, a portable Docker container that encapsulates an executable software, documentation, and data used to generate the results shown in the paper.
 
-## 3/16/2018 Update
-We are testing the Docker image and organizing the scripts and data used to generate figures. We will post a link to the Docker image on Monday 3/19. We apologize for the delay.
+# Docker container
 
-## Data
-The results in this paper were generated using whole-slide .svs images of paraffin embedded sections and clinica outcomes data from The Cancer Genome Atlas. These images are publically available and hosted at the [NCI Genomic Data Commons](https://gdc.cancer.gov/) (GDC) Legacy Archive. A full list of the whole-slide image files used in the paper is available in /data/rois.txt. Note that the whole-slide image files and even the extracted regions-of-interest (ROIs) are quite large and so these are not hosted here.
+A Docker container that encapsulates executables and data is posted at [DockerHub](https://hub.docker.com/r/cancerdatascience/scnn/)
 
-### Downloading the data
-GDC does not currently enable direct querying of the TCGA diagnostic images for a specific project. To generate a list of the files to download, you have to first generate a manifest of all whole-slide images in TCGA (both frozen and diagnostic), filter the frozen section images in this list, and then match the identifiers against the sample identifiers (TCGA-##-####) for the project(s) of interest.
+Brief directions for deploying this Docker are provided below. Consult the [Docker Tutorial](https://docs.docker.com/get-started/) for additional guidance.
 
-The manifest for all TCGA whole-slide images can be generated using the [GDC Legacy Archive query](https://portal.gdc.cancer.gov/legacy-archive/search/f?filters=%7B%22op%22:%22and%22,%22content%22:%5B%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_format%22,%22value%22:%5B%22SVS%22%5D%7D%7D%5D%7D).
+1. Pull the docker to your system and start the container.
 
-Rows containing diagnostic image files can be identified using the Linux command line
+``
+$docker pull cancerdatascience/scnn:1.0
+``
+
+2. Confirm that the docker image is downloaded. The image is > 10GB due to the inclusion of data and so the download may take some time
+
 ```
-cut -d$'\t' -f 2 gdc_manifest.txt | grep -E '\.*-DX[^-]\w*.'
+$docker images
+REPOSITORY                     TAG                            IMAGE ID            CREATED             SIZE
+cancerdatascience/scnn         1.0                            858d8c3d6af4        24 hours ago        13.2GB
 ```
 
-After matching the slide filenames against the sample IDs from the clinical data for the project(s) of interest, the relevant filenames can be used with the [GDC Data Transfer Tool](https://gdc.cancer.gov/access-data/gdc-data-transfer-tool) or the [GDC API](https://gdc.cancer.gov/developers/gdc-application-programming-interface-api).
+3. Switch to the docker container and run the code on CPU or GPU
 
-### Extracting regions of interest
-Regions of interest can be extracted using the python script generate_rois.py. This script consumes a tab-delimited text file describing the whole-slide image files, ROI coordinates, desired size and magnification for extracted ROIs, and then generates a collection of ROI .png images. These images are transformed into a binary for model training and testing by the software described below.
+CPU version
 
-*Note: region extraction depends on the [OpenSlide](http://openslide.org/) library. This library can be installed locally, and is also available in the Docker image described below.*
+```
+$docker run -it cancerdatascience/scnn:1.0 /bin/bash
+root@97d439b58033:/# cd /root/scnn
+root@97d439b58033:/# python model_train.py
+```
+
+GPU version (4 GPUs - see note below)
+
+```
+$docker run --device=/dev/nvidiactl --device=/dev/nvidia-uvm --device=/dev/nvidia0:/dev/nvidia0 --device=/dev/nvidia1:/dev/nvidia1 --device=/dev/nvidia2:/dev/nvidia2 --device=/dev/nvidia3:/dev/nvidia3 -i -t cancerdatascience/scnn:1.0 /bin/bash
+root@97d439b58033:/# cd /root/scnn
+root@97d439b58033:/# python model_train.py
+```
+
+*Note: this docker is built on CUDA 8.0 with CUDNN 5.1 and Nvidia driver 367.57. This code was developed on a system with 4 NVIDIA K80 GPUs. The memory limitations of GPU systems vary widely and running this Docker in GPU with inadequate resources may produce memory errors.*
 
 # Executables for training and testing models
 
 The Docker container provides executables for training SCNN/GSCNN models and for evaluating the accuracy of these models. Both of these executables consume:
 * ROI .png files
 * A .csv file describing the patient IDs, event times, censoring (0 for uncensored or event observed, 1 for right-censored), patient indexes (integer indexes used to refer to patients inside the binary files that are used in training and testing), and any genomic variables. An example file is provided in this repository.
+
+*Note: Executables may not produce identical models or statistics for different runs. We have taken steps to reduce variability wherever possible, but the issues of non-associativity in distributed and GPU computing produce variations that stack as models are trained. Graph-level seeding and operation-level seeding issues were addressed using TensorFlow functions to eliminate these as a source of randomness.*
 
 ## Training
 
@@ -145,4 +167,22 @@ python model_test.py -m GSCNN --ngf 80
 ```
 This command will test the GSCNN model with 80 genomic features.
 
-*Note that by default this model is using the last 5 models saved during training in order to do the prediction for test patients.*
+# Data
+The results in this paper were generated using whole-slide .svs images of paraffin embedded sections and clinica outcomes data from The Cancer Genome Atlas. These images are publically available and hosted at the [NCI Genomic Data Commons](https://gdc.cancer.gov/) (GDC) Legacy Archive. A full list of the whole-slide image files used in the paper is available in /data/rois.txt.
+
+## Downloading the data
+GDC does not currently enable direct querying of the TCGA diagnostic images for a specific project. To generate a list of the files to download, you have to first generate a manifest of all whole-slide images in TCGA (both frozen and diagnostic), filter the frozen section images in this list, and then match the identifiers against the sample identifiers (TCGA-##-####) for the project(s) of interest.
+
+The manifest for all TCGA whole-slide images can be generated using the [GDC Legacy Archive query](https://portal.gdc.cancer.gov/legacy-archive/search/f?filters=%7B%22op%22:%22and%22,%22content%22:%5B%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_format%22,%22value%22:%5B%22SVS%22%5D%7D%7D%5D%7D).
+
+Rows containing diagnostic image files can be identified using the Linux command line
+```
+cut -d$'\t' -f 2 gdc_manifest.txt | grep -E '\.*-DX[^-]\w*.'
+```
+
+After matching the slide filenames against the sample IDs from the clinical data for the project(s) of interest, the relevant filenames can be used with the [GDC Data Transfer Tool](https://gdc.cancer.gov/access-data/gdc-data-transfer-tool) or the [GDC API](https://gdc.cancer.gov/developers/gdc-application-programming-interface-api).
+
+### Extracting regions of interest
+Regions of interest can be extracted using the python script generate_rois.py. This script consumes a tab-delimited text file describing the whole-slide image files, ROI coordinates, desired size and magnification for extracted ROIs, and then generates a collection of ROI .png images. These images are transformed into a binary for model training and testing by the software described below.
+
+*Note: region extraction depends on the [OpenSlide](http://openslide.org/) library.*
