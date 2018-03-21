@@ -21,17 +21,11 @@ Brief directions for deploying this Docker are provided below. Consult the [Dock
 $docker pull cancerdatascience/scnn:1.0
 ``
 
-2. Confirm that the docker image is downloaded. The image is > 10 GB due to the size of the data contained in the image. 
+2. Confirm that the docker image is downloaded. The image is > 10GB due to the inclusion of data and so the download may take some time
 
 ``
 $docker images
-``
-
-In the output the "cancerdatascience/scnn" should be listed as follows, note that IMAGE ID and creation time would be different.
-
-``
 REPOSITORY                     TAG                            IMAGE ID            CREATED             SIZE
-
 cancerdatascience/scnn         1.0                            858d8c3d6af4        24 hours ago        13.2GB
 ``
 
