@@ -26,7 +26,9 @@ $docker pull cancerdatascience/scnn:1.0
 ``
 $docker images
 ``
+
 In the output the "cancerdatascience/scnn" should be listed as follows, note that IMAGE ID and creation time would be different.
+
 ``
 REPOSITORY                     TAG                            IMAGE ID            CREATED             SIZE
 cancerdatascience/scnn         1.0                            21d851ebf629        20 minutes ago      13.2GB
