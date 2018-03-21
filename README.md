@@ -31,7 +31,8 @@ In the output the "cancerdatascience/scnn" should be listed as follows, note tha
 
 ``
 REPOSITORY                     TAG                            IMAGE ID            CREATED             SIZE
-
+``
+``
 cancerdatascience/scnn         1.0                            21d851ebf629        20 minutes ago      13.2GB
 ``
 
