@@ -28,15 +28,10 @@ $docker images
 ``
 
 In the output the "cancerdatascience/scnn" should be listed as follows, note that IMAGE ID and creation time would be different.
-
 ``
 REPOSITORY                     TAG                            IMAGE ID            CREATED             SIZE
+cancerdatascience/scnn         1.0                            858d8c3d6af4        24 hours ago        13.2GB
 ``
-
-``
-cancerdatascience/scnn         1.0                            21d851ebf629        20 minutes ago      13.2GB
-``
-
 3. Switch to the docker container and run the code on CPU or GPU
 
 3-1. CPU version
