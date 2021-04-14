@@ -4,8 +4,7 @@ The Docker image is available below. We are still working to organize and docume
 # Survival Convolutional Networks
 This page contains software and data resources related to the paper
 
->[Mobadersany, *et al.* "Predicting cancer outcomes from histology and
-genomics using convolutional networks" *PNAS* published online March 12, 2018 ahead of print](http://www.pnas.org/content/early/2018/03/09/1717139115).
+[Mobadersany, Pooya, et al. "Predicting cancer outcomes from histology and genomics using convolutional networks." Proceedings of the National Academy of Sciences 115.13 (2018): E2970-E2979.](https://www.pnas.org/content/115/13/E2970).
 
 We provide scripts for formatting and analyzing data, a portable Docker container that encapsulates an executable software, documentation, and data used to generate the results shown in the paper.
 
