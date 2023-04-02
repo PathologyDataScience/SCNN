@@ -1,0 +1,21 @@
+Bootstrap: docker
+From: cancerdatascience/scnn:1.0
+
+%labels
+  MAINTAINER_NAME Edward Yang
+  MAINTAINER_EMAIL yang.e@wehi.edu.au
+  APPLICATION_NAME Suvival Convolutional Neural Networks
+  APPLICATION_VERSION 1.0
+  HARDWARE gpu
+  LAST_UPDATED 31-MAR-2023
+
+%help
+  Container based on docker://cancerdatascience/scnn:1.0 and modified to work with Apptainer in a rootless environment. Includes CUDA Toolkit 8.0.44 and NVIDIA drivers 367.57.
+
+%post
+  rm -r /root/nvidia /root/.nv /root/cuda_8.0.44_linux-run /root/cudnn-8.0-linux-x64-v5.1.tgz
+  mv /root/scnn /root/images /opt
+  chmod -R +rX /opt/scnn /opt/images
+
+%runscript
+  python /opt/scnn/$@
